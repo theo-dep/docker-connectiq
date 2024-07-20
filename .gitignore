@@ -62,3 +62,12 @@ examples-other
 .Garmin/ConnectIQ/Fonts
 .Garmin/ConnectIQ/Devices
 .Garmin/ConnectIQ/Sdks
+.Garmin/ConnectIQ/current-sdk.cfg
+.Garmin/ConnectIQ/simulator.ini
+
+# examples
+/examples/**/gen
+/examples/**/internal-mir
+/examples/**/mir
+/examples/**/*.prg*
+/examples/**/*-settings.json

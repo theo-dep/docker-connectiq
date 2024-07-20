@@ -15,13 +15,10 @@ class RemarCoeurMenuDelegate extends WatchUi.MenuInputDelegate {
             // System.println("item 1");
             mView.nextSensor();
             WatchUi.requestUpdate();
-        	return true;
-            
         } else if (item == :item_2) {
             // System.println("item 2");
             mView.previousSensor();
             WatchUi.requestUpdate();
-        	return true;
         }
     }
 

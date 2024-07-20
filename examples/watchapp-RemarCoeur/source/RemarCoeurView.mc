@@ -11,24 +11,24 @@ class RemarCoeurView extends WatchUi.View {
                                  :getTemperatureHistory,
                                  :getPressureHistory,
                                  :getElevationHistory ];
-                                 
+
     hidden var mSensorLabel = ["Heart",
                                "Temp",
                                "Pressure",
                                "Elevation" ];
-                               
+
     hidden var mSensorMetric = ["bpm",
                                "°C",
                                "hPa",
                                "m" ];
-                               
+
     hidden var mSensorFactor = [1, 1, 0.01, 1 ];
 
 	private var mSensorValues = [ 0, 0, 0, 0 ];
 
     function initialize() {
         View.initialize();
-        
+
         Sensor.setEnabledSensors([Sensor.SENSOR_HEARTRATE]);
     	Sensor.enableSensorEvents(method(:onSensorHeartRate));
     }
@@ -39,12 +39,12 @@ class RemarCoeurView extends WatchUi.View {
     }
 
 	function draw(dc) {
-		
+
 		for(var i = 0; i < 4; i += 1) {
         	var fieldTemplate = "fieldValue$1$";
 			var myParams = [ mSensorLabel[i] ];
 			var fieldName = Lang.format(fieldTemplate, myParams);
-    	
+
 //    		var myText = new WatchUi.Text({
 //	            :text => me.mSensorValues[i] + " " + mSensorMetric[i],
 //	            :color=> Graphics.COLOR_WHITE,
@@ -52,11 +52,11 @@ class RemarCoeurView extends WatchUi.View {
 //	            :locX => WatchUi.LAYOUT_HALIGN_CENTER,
 //	            :locY => WatchUi.LAYOUT_VALIGN_CENTER
 //	        });
-    	
-	        var output = View.findDrawableById(fieldName);
-	        output.setText(me.mSensorValues[i] + " " + mSensorMetric[i]);
+
+	        var drawable = View.findDrawableById(fieldName) as WatchUi.Text;
+	        drawable.setText(me.mSensorValues[i] + " " + mSensorMetric[i]);
         }
-		
+
 	}
 
     // Called when this View is brought to the foreground. Restore
@@ -66,10 +66,10 @@ class RemarCoeurView extends WatchUi.View {
     	for(var i = 0; i < 4; i += 1) {
     		me.mSensorValues[i] = "0";
     	}
-    	
+
     	onRefreshSensor();
     	//draw(dc);
-    	
+
 		var myTimer = new Timer.Timer();
     	myTimer.start(method(:onRefreshSensor), 5000, true);
     }
@@ -77,7 +77,7 @@ class RemarCoeurView extends WatchUi.View {
     // Update the view
     function onUpdate(dc) {
         // Call the parent onUpdate function to redraw the layout
-        draw(dc);        
+        draw(dc);
         View.onUpdate(dc);
     }
 
@@ -93,36 +93,36 @@ class RemarCoeurView extends WatchUi.View {
             var sensorHistory = getMethod.invoke( {:period =>10, :order => SensorHistory.ORDER_NEWEST_FIRST} );
 	        return sensorHistory.next().data;
         }
-	
+
 	    return null;
     }
-    
-    function onSensorHeartRate(sensorInfo) {
+
+    function onSensorHeartRate(sensorInfo as Sensor.Info) as Void {
     	// System.println("Heart Rate: " + sensorInfo.heartRate);
     	var HR = sensorInfo.heartRate;
         if( HR != null ) {
             me.mSensorValues[0] = HR.toString();
         }
 	}
-    
-    function onRefreshSensor() {
+
+    function onRefreshSensor() as Void {
     	// System.println(".");
-    
+
     	for(var i = 1; i < 4; i += 1) {
 		    var sensorValue = me.getLatestSensorHistory(i);
-		    
+
 			if (sensorValue == null) {
 	    		me.mSensorValues[i] = "0";
-	    	}    		
+	    	}
 	    	else {
-	    		sensorValue = sensorValue * mSensorFactor[i];			
+	    		sensorValue = sensorValue * mSensorFactor[i];
 	    		me.mSensorValues[i] =  sensorValue.format("%4.2f");
 	    	}
 		}
-    	
+
     	WatchUi.requestUpdate();
     }
-    
+
     function nextSensor() {
         mIndex += 1;
         mIndex %= 4;

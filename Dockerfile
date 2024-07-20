@@ -22,20 +22,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 #          https://developer.garmin.com/downloads/connect-iq/sdk-manager/sdk-manager.json
 ENV CONNECT_IQ_SDK_URL https://developer.garmin.com/downloads/connect-iq
 
-# libwebkitgtk-1.0-0
-# RUN echo "deb http://cz.archive.ubuntu.com/ubuntu bionic main universe" >> /etc/apt/sources.list
-
 # Compiler tools
 RUN    apt-get update -y \
-# libwebkitgtk-1.0-0 (old repo)
-    && apt-get install -y gnupg2 \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3B4FE6ACC0B21F32 \
-    && echo "deb http://archive.ubuntu.com/ubuntu bionic main universe" >> /etc/apt/sources.list \
-    && apt-get update -y \
-    && apt-get install --no-install-recommends -qqy libwebkitgtk-1.0-0 \
+    && apt-get install --no-install-recommends -qqy libwebkit2gtk-4.0-dev \
+# libwebkit2gtk-4.0 deps
+    && apt-get install --no-install-recommends -qqy gir1.2-javascriptcoregtk-4.0 gir1.2-webkit2-4.0 libicu70 \
+        libjavascriptcoregtk-4.0-18 libjavascriptcoregtk-4.0-dev libsoup2.4-dev libwebkit2gtk-4.0-37 \
 # JDK and other deps
     && apt-get install --no-install-recommends -qqy openjdk-11-jdk \
-    && apt-get install --no-install-recommends -qqy unzip wget curl git ssh tar gzip tzdata ca-certificates gnupg2 libusb-1.0 libpng16-16 libgtk2.0-0 libwebkitgtk-3.0-0 libgtk-3-0 \
+    && apt-get install --no-install-recommends -qqy unzip wget curl git ssh tar gzip tzdata ca-certificates gnupg2 libusb-1.0 libpng16-16 \
     && apt-get clean \
 	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 

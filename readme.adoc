@@ -52,10 +52,10 @@ This logic is part of *./run.sh*.
 
 ====
     $ make console
-    $$ cd ${CIQ_HOME}/samples/Drawable/
-    $$ monkeyc -d vivoactive3 -f ./monkey.jungle -o drawable.prg -y ~/eclipse-workspace/developer_key.der
+    $$ cd ~/examples/watchapp-RemarCoeur
+    $$ monkeyc -d fenix7s -f ./monkey.jungle -o RemarCoeur.prg -y ~/workspace/developer_key.der
     $$ connectiq &
-    $$ monkeydo drawable.prg vivoactive3
+    $$ monkeydo RemarCoeur.prg fenix7s
 
 .Result of above commands
 image:res/Drawable.png[Sample app Drawable]

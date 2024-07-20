@@ -1,8 +1,7 @@
 # Check at https://developer.garmin.com/downloads/connect-iq/sdks/sdks.json
-VERSION := 3.1.9-2020-06-24-1cc9d3a70
-# VERSION := 4.0.5-2021-08-09-29788b0dc
+VERSION := 7.2.1-2024-06-25-7463284e6
 
-all: build 
+all: build
 
 pull:
 	docker pull kalemena/connectiq:$(VERSION) ;
