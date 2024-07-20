@@ -1,7 +1,7 @@
 #!/bin/bash
 xhost +local:
 
-CIQ_WORKSPACE=${CIQ_WORKSPACE:-`pwd`/eclipse-workspace}
+CIQ_WORKSPACE=${CIQ_WORKSPACE:-`pwd`/workspace}
 CIQ_BINARIES=${CIQ_BINARIES:-`pwd`/.Garmin}
 EXAMPLES_FOLDER=${EXAMPLES_FOLDER:-`pwd`/examples}
 COMMAND=${COMMAND:-/bin/bash}
@@ -21,7 +21,7 @@ else
 fi
 
 docker run -it --rm \
-    -v $CIQ_WORKSPACE:/home/developer/eclipse-workspace \
+    -v $CIQ_WORKSPACE:/home/developer/workspace \
     -v $EXAMPLES_FOLDER:/home/developer/examples \
     -v $CIQ_BINARIES:/home/developer/.Garmin \
     -v /tmp/.X11-unix:/tmp/.X11-unix \

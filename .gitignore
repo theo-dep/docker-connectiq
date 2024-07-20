@@ -58,17 +58,6 @@ dkms.conf
 *.pem
 examples-other
 
-# Eclipse
-.eclipse
-.cache
-.simulator
-.p2
-.config
-.local
-.swt
-.tooling
-.metadata
-
 # Garmin
 .Garmin/ConnectIQ/Fonts
 .Garmin/ConnectIQ/Devices

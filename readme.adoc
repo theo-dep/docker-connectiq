@@ -16,7 +16,7 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Installation of Garmin Tools Connect IQ SDK and Eclipse IDE plugins as a Docker container.
+Installation of Garmin Tools Connect IQ SDK as a Docker container.
 
 Docker image is available through docker hub as link:https://hub.docker.com/r/kalemena/connectiq[kalemena/connectiq]
 
@@ -34,13 +34,13 @@ Docker image is available through docker hub as link:https://hub.docker.com/r/ka
 
 [TIP]
 ====
-Command lines *make console*, or *make eclipse* will map folders:
+Command lines *make console* will map folders:
 
-- CIQ_WORKSPACE=./eclipse-workspace
+- CIQ_WORKSPACE=./workspace
 - CIQ_BINARIES=./.Garmin
 - EXAMPLES_FOLDER=./examples
 
-For persistence reasons, files created in eclipse or console should be done in these folders.
+For persistence reasons, files created in console should be done in these folders.
 ====
 
 === Connect IQ certificate
@@ -61,11 +61,9 @@ This logic is part of *./run.sh*.
 image:res/Drawable.png[Sample app Drawable]
 ====
 
-=== Preparing Eclipse IDE
+=== Preparing
 
 ====
-    $ make eclipse
-
 .Menu Connect IQ => Open SDK Manager => Login to Garmin Connect IQ to allow downloads of device(s)
 image:res/eclipse-connectiq-sdk-manager-Login.png[]
 
@@ -76,11 +74,9 @@ image:res/eclipse-connectiq-sdk-manager-SDK.png[]
 image:res/eclipse-connectiq-sdk-manager-Devices.png[]
 ====
 
-=== Building app in Eclipse IDE
+=== Building app
 
 ====
-    $ make eclipse
-
 .Menu File => Import => Existing Projects into Workspace
 image:res/eclipse-import-project.png[]
 
@@ -94,11 +90,9 @@ image:res/eclipse-launch-config.png[]
 image:res/Drawable.png[Sample app Drawable]
 ====
 
-=== Authoring app in Eclipse IDE
+=== Authoring app
 
 ====
-    $ make eclipse
-
 * In Eclipse, Menu File => New => Project => Connect IQ Project
 * Make sure to create project under */workspace/...* hierarchy
 * Then select *Widget* and *Next*
@@ -155,7 +149,3 @@ image:res/Drawable.png[Sample app Drawable]
 * link:https://github.com/vtrifonov-esfiddle/ConnectIQ-WatchTemperature[]
 * link:https://github.com/le-cds/connectiq[]
 * link:https://gist.github.com/jonathan-beebe/512b01bbcb6cd8f50a02e12cb74972f8[Progress bar]
-
-=== Eclipse
-
-* link:https://github.com/qperez/docker-eclipse-mt-jdk8[Running Eclipse from Mac]

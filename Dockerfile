@@ -55,26 +55,6 @@ RUN    echo "Downloading Connect IQ SDK Manager:" \
 # Fix missing libpng12 (monkeydo)
 RUN ln -s /usr/lib/x86_64-linux-gnu/libpng16.so.16 /usr/lib/x86_64-linux-gnu/libpng12.so.0
 
-# Install Eclipse IDE
-ENV ECLIPSE_VERSION         2021-09/R/eclipse-java-2021-09-R-linux-gtk-x86_64.tar.gz
-ENV ECLIPSE_DOWNLOAD_URL    https://www.eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/${ECLIPSE_VERSION}&r=1
-RUN    curl -LsS -o eclipse.tar.gz "${ECLIPSE_DOWNLOAD_URL}" \
-    && echo "Installing eclipse JavaEE ${ECLIPSE_DOWNLOAD_URL}" \
-    && tar -C /opt -xf eclipse.tar.gz \
-    && rm -rf eclipse.tar.gz
-
-# Eclipse IDE plugins
-RUN    echo "Installing Connect IQ Eclipse Plugins" \ 
-    && cd /opt/eclipse \
-    && ./eclipse -clean -noSplash \
-        -application org.eclipse.equinox.p2.director \
-        -repository ${CONNECT_IQ_SDK_URL}/eclipse/ \
-        -installIU connectiq.feature.ide.feature.group/,connectiq.feature.sdk.feature.group/
-
-# Few prefs
-ADD [ "eclipse-workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/IQ_IDE.prefs", "/home/developer/eclipse-workspace/.metadata/.plugins/org.eclipse.core.runtime/.settings/IQ_IDE.prefs" ]
-ADD [ "org.eclipse.ui.ide.prefs", "/opt/eclipse/configuration/.settings/org.eclipse.ui.ide.prefs" ]
-
 # Set user=1000 and group=0 as the owner of all files under /home/developer
 RUN    mkdir -p /home/developer \
     && echo "developer:x:1000:1000:Developer,,,:/home/developer:/bin/bash" >> /etc/passwd \
@@ -85,9 +65,7 @@ USER developer
 ENV HOME /home/developer
 WORKDIR /home/developer
 
-ENV ECLIPSE_HOME    /opt/eclipse
 ENV CIQ_HOME        /opt/ciq
-ENV PATH ${PATH}:${CIQ_HOME}/bin:${ECLIPSE_HOME}
+ENV PATH ${PATH}:${CIQ_HOME}/bin
 
-# CMD [ "/opt/eclipse/eclipse" ]
 CMD [ "/bin/bash" ]

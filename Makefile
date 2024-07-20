@@ -14,6 +14,3 @@ build:
 
 console:
 	bash ./run.sh
-
-eclipse:
-	COMMAND=/opt/eclipse/eclipse bash ./run.sh
